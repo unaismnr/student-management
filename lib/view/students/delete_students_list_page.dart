@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:student_management/utils/consts.dart';
 
-class AllStudents extends StatelessWidget {
-  const AllStudents({super.key});
+class DeleteStudentsList extends StatelessWidget {
+  const DeleteStudentsList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class AllStudents extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         title: const Text(
-          'Students',
+          'Delete Students',
           style: TextStyle(
             color: kWhiteColor,
           ),
@@ -73,8 +73,8 @@ class AllStudents extends StatelessWidget {
                           ),
                         ),
                         trailing: Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 20,
+                          Icons.delete,
+                          size: 25,
                           color: Theme.of(context).textTheme.bodyMedium!.color,
                         ),
                       );
