@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:student_management/controllers/time_provider.dart';
 import 'package:student_management/utils/theme.dart';
 import 'package:student_management/view/home.dart';
 
@@ -11,11 +13,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: MainTheme.lightMode,
-      darkTheme: MainTheme.darkMode,
-      home: const HomePage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => TimeProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Student Management',
+        theme: MainTheme.lightMode,
+        darkTheme: MainTheme.darkMode,
+        home: const HomePage(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
