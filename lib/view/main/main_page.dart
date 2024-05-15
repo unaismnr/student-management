@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_management/view/home.dart';
+import 'package:student_management/view/home/home.dart';
 import 'package:student_management/view/main/bottom_navigation.dart';
 import 'package:student_management/view/period_time/period_time.dart';
 import 'package:student_management/view/settings/settings.dart';

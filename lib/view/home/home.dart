@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:student_management/controllers/time_provider.dart';
 import 'package:student_management/utils/consts.dart';
+import 'package:student_management/view/common/navigation_helper.dart';
+import 'package:student_management/view/students/all_students.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -68,7 +70,7 @@ class HomePage extends StatelessWidget {
                           DateFormat.jm().format(timeProvider.currentTime),
                           style: const TextStyle(
                             fontSize: 20,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ],
@@ -80,43 +82,6 @@ class HomePage extends StatelessWidget {
           ),
           Expanded(child: HomeGridView()),
         ],
-      ),
-    );
-  }
-
-  Widget rowItems(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            offset: const Offset(0, 10),
-            blurRadius: 10,
-            spreadRadius: 0,
-          )
-        ],
-      ),
-      child: Material(
-        borderRadius: BorderRadius.circular(15),
-        color: Theme.of(context).cardColor,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(15),
-          onTap: () {},
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Icon(
-                  Icons.person_4,
-                  size: 40,
-                  color: Theme.of(context).iconTheme.color,
-                ),
-                const Text('Students'),
-              ],
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -161,6 +126,18 @@ class HomeGridView extends StatelessWidget {
     {
       'icon': Icons.campaign_outlined,
       'title': 'Alerts',
+    },
+    {
+      'icon': Icons.edit_note,
+      'title': 'Edit',
+    },
+    {
+      'icon': Icons.delete_outline,
+      'title': 'Delete',
+    },
+    {
+      'icon': Icons.edit_square,
+      'title': 'Exams',
     }
   ];
 
@@ -169,6 +146,7 @@ class HomeGridView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 27),
       child: GridView.builder(
+        physics: const ClampingScrollPhysics(),
         itemCount: gridviewList.length,
         shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -195,7 +173,14 @@ class HomeGridView extends StatelessWidget {
               color: Theme.of(context).cardColor,
               child: InkWell(
                 borderRadius: BorderRadius.circular(15),
-                onTap: () {},
+                onTap: () {
+                  if (items['title'] == 'Students') {
+                    NavigationHelper.push(
+                      context,
+                      const AllStudents(),
+                    );
+                  }
+                },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
