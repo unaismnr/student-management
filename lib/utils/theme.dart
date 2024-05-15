@@ -3,10 +3,10 @@ import 'package:student_management/utils/consts.dart';
 
 class MainTheme {
   static final lightMode = ThemeData(
-    // appBarTheme: const AppBarTheme(
-    //   centerTitle: true,
-    //   color: mainColor,
-    // ),
+    appBarTheme: const AppBarTheme(
+      centerTitle: true,
+      color: mainColor,
+    ),
     scaffoldBackgroundColor: const Color.fromARGB(255, 247, 247, 247),
     primaryColor: mainColor,
     cardColor: kWhiteColor,
@@ -20,11 +20,11 @@ class MainTheme {
     ),
   );
   static final darkMode = ThemeData(
-    // appBarTheme: const AppBarTheme(
-    //   centerTitle: true,
-    //   color: mainColor,
-    // ),
-    scaffoldBackgroundColor: const Color.fromARGB(255, 35, 35, 35),
+    appBarTheme: const AppBarTheme(
+      centerTitle: true,
+      color: kBlackColor,
+    ),
+    scaffoldBackgroundColor: const Color.fromARGB(255, 40, 40, 40),
     primaryColor: kBlackColor,
     cardColor: const Color.fromARGB(255, 48, 49, 52),
     iconTheme: const IconThemeData(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:student_management/controllers/time_provider.dart';
 import 'package:student_management/utils/theme.dart';
-import 'package:student_management/view/home.dart';
+import 'package:student_management/view/main/main_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         title: 'Student Management',
         theme: MainTheme.lightMode,
         darkTheme: MainTheme.darkMode,
-        home: const HomePage(),
+        home: MainPage(),
         debugShowCheckedModeBanner: false,
       ),
     );
