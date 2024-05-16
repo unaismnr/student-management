@@ -1,9 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:student_management/services/students_service.dart';
 import 'package:student_management/utils/consts.dart';
+import 'package:student_management/view/common/navigation_helper.dart';
+import 'package:student_management/view/students/single_student.dart';
 
 class AllStudents extends StatelessWidget {
-  const AllStudents({super.key});
+  AllStudents({super.key});
+
+  final StudentsService studentsService = StudentsService();
 
   @override
   Widget build(BuildContext context) {
@@ -51,35 +57,79 @@ class AllStudents extends StatelessWidget {
                   ),
                   color: Theme.of(context).colorScheme.secondaryContainer,
                 ),
-                child: ListView.builder(
-                    physics: const ClampingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        onTap: () {},
-                        leading: CircleAvatar(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.background,
-                          child: Icon(
-                            Icons.person,
-                            color: Theme.of(context).iconTheme.color,
+                child: StreamBuilder<QuerySnapshot>(
+                    stream: studentsService.fetchStudents(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                          physics: const ClampingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            final data = snapshot.data!.docs[index];
+                            return ListTile(
+                              onTap: () {
+                                NavigationHelper.push(
+                                  context,
+                                  SingleStudent(
+                                    studentDate: data,
+                                  ),
+                                );
+                              },
+                              leading: CircleAvatar(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.background,
+                                child: Icon(
+                                  Icons.person,
+                                  color: Theme.of(context).iconTheme.color,
+                                ),
+                              ),
+                              title: Text(
+                                data['name'],
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .color,
+                                ),
+                              ),
+                              subtitle: Text(
+                                'Admission: ${data['admission']}',
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .color,
+                                ),
+                              ),
+                              trailing: Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                size: 20,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .color,
+                              ),
+                            );
+                          },
+                          itemCount: snapshot.data!.docs.length,
+                        );
+                      } else if (snapshot.data == null) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: mainColor,
                           ),
-                        ),
-                        title: Text(
-                          'Unais Unu',
-                          style: TextStyle(
-                            color:
-                                Theme.of(context).textTheme.bodyMedium!.color,
-                          ),
-                        ),
-                        trailing: Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 20,
-                          color: Theme.of(context).textTheme.bodyMedium!.color,
+                        );
+                      } else if (snapshot.data!.docs.isEmpty) {
+                        return const Center(
+                          child: Text('No Data'),
+                        );
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: mainColor,
                         ),
                       );
-                    },
-                    itemCount: 20),
+                    }),
               ),
             )
           ],
