@@ -181,11 +181,12 @@ class HomeGridView extends StatelessWidget {
                       context,
                       AllStudents(),
                     );
-                  } else if (items['title'] == 'Edit') {
+                  } else if (items['title'] == 'Add') {
                     NavigationHelper.push(
                       context,
                       AddEditStudent(),
                     );
+                  } else if (items['title'] == 'Edit') {
                   } else if (items['title'] == 'Delete') {
                     NavigationHelper.push(
                       context,

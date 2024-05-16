@@ -6,20 +6,38 @@ class StudentsService {
   );
 
   Future<void> addStudent(
-    double regNo,
+    String addmissionNo,
     String name,
-    double attendance,
+    String attendance,
+    String leave,
   ) {
     return students.add({
-      'reg.no': regNo,
+      'reg.no': addmissionNo,
       'name': name,
       'attendance': attendance,
+      'leave': leave,
       'time': Timestamp.now(),
     });
   }
 
   Stream<QuerySnapshot> fetchStudents() {
-    final getStudents = students.orderBy('time').snapshots();
+    final getStudents = students.orderBy('time', descending: true).snapshots();
     return getStudents;
+  }
+
+  void editStudent(
+    String docId,
+    String addmissionNo,
+    String name,
+    String attendance,
+    String leave,
+  ) {
+    students.doc(docId).update({
+      'reg.no': addmissionNo,
+      'name': name,
+      'attendance': attendance,
+      'leave': leave,
+      'time': Timestamp.now(),
+    });
   }
 }

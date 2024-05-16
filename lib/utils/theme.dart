@@ -28,8 +28,11 @@ class MainTheme {
     iconTheme: const IconThemeData(
       color: mainColor,
     ),
-    textTheme: const TextTheme(
-      bodyMedium: TextStyle(
+    textTheme: TextTheme(
+      bodySmall: TextStyle(
+        color: Colors.black.withOpacity(0.4),
+      ),
+      bodyMedium: const TextStyle(
         color: kBlackColor,
       ),
     ),
@@ -68,8 +71,11 @@ class MainTheme {
     iconTheme: const IconThemeData(
       color: Color.fromARGB(255, 245, 245, 245),
     ),
-    textTheme: const TextTheme(
-      bodyMedium: TextStyle(
+    textTheme: TextTheme(
+      bodySmall: TextStyle(
+        color: Colors.grey.withOpacity(0.7),
+      ),
+      bodyMedium: const TextStyle(
         color: Color.fromARGB(255, 245, 245, 245),
       ),
     ),

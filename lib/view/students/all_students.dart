@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:student_management/services/students_service.dart';
 import 'package:student_management/utils/consts.dart';
-import 'package:student_management/view/common/navigation_helper.dart';
-import 'package:student_management/view/students/single_student.dart';
 
 class AllStudents extends StatelessWidget {
   AllStudents({super.key});
@@ -14,7 +11,6 @@ class AllStudents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         elevation: 0,
         title: const Text(
@@ -28,35 +24,23 @@ class AllStudents extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            kHeight20,
-            Container(
-              height: MediaQuery.of(context).size.height * 0.06,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 10,
-                    spreadRadius: 0,
-                  )
-                ],
-              ),
-              child: CupertinoSearchTextField(
-                backgroundColor:
-                    Theme.of(context).colorScheme.secondaryContainer,
-              ),
-            ),
             const SizedBox(height: 15),
             Expanded(
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                  color: Theme.of(context).colorScheme.secondaryContainer,
-                ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                    color: Theme.of(context).colorScheme.secondaryContainer,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10,
+                        spreadRadius: 0,
+                      )
+                    ]),
                 child: StreamBuilder<QuerySnapshot>(
                     stream: studentsService.fetchStudents(),
                     builder: (context, snapshot) {
@@ -67,14 +51,7 @@ class AllStudents extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final data = snapshot.data!.docs[index];
                             return ListTile(
-                              onTap: () {
-                                NavigationHelper.push(
-                                  context,
-                                  SingleStudent(
-                                    studentDate: data,
-                                  ),
-                                );
-                              },
+                              onTap: () {},
                               leading: CircleAvatar(
                                 backgroundColor:
                                     Theme.of(context).colorScheme.background,
@@ -85,15 +62,6 @@ class AllStudents extends StatelessWidget {
                               ),
                               title: Text(
                                 data['name'],
-                                style: TextStyle(
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .color,
-                                ),
-                              ),
-                              subtitle: Text(
-                                'Admission: ${data['admission']}',
                                 style: TextStyle(
                                   color: Theme.of(context)
                                       .textTheme
