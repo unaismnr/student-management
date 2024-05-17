@@ -72,7 +72,6 @@ class _AddEditStudentState extends State<AddEditStudent> {
       attendance,
       leave,
     );
-    studentsService.students.orderBy('time', descending: false);
   }
 
   @override

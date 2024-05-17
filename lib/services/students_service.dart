@@ -21,7 +21,7 @@ class StudentsService {
   }
 
   Stream<QuerySnapshot> fetchStudents() {
-    final getStudents = students.orderBy('time', descending: true).snapshots();
+    final getStudents = students.orderBy('time').snapshots();
     return getStudents;
   }
 

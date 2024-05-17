@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:student_management/controllers/theme_provider.dart';
 import 'package:student_management/controllers/time_provider.dart';
 import 'package:student_management/utils/theme.dart';
 import 'package:student_management/view/main/main_page.dart';
@@ -24,13 +25,21 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => TimeProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => ThemeProvider(),
+        ),
       ],
-      child: MaterialApp(
-        title: 'Student Management',
-        theme: MainTheme.lightMode,
-        darkTheme: MainTheme.darkMode,
-        home: MainPage(),
-        debugShowCheckedModeBanner: false,
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, _) {
+          return MaterialApp(
+            title: 'Student Management',
+            theme: MainTheme.lightMode,
+            darkTheme: MainTheme.darkMode,
+            themeMode: themeProvider.isDark ? ThemeMode.light : ThemeMode.dark,
+            home: MainPage(),
+            debugShowCheckedModeBanner: false,
+          );
+        },
       ),
     );
   }
