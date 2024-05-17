@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
             title: 'Student Management',
             theme: MainTheme.lightMode,
             darkTheme: MainTheme.darkMode,
-            themeMode: themeProvider.isDark ? ThemeMode.light : ThemeMode.dark,
+            themeMode: themeProvider.isDark ? ThemeMode.dark : ThemeMode.light,
             home: MainPage(),
             debugShowCheckedModeBanner: false,
           );
