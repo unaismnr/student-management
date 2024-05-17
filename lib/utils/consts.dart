@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const mainColor = Color.fromARGB(255, 0, 44, 97);
+const mainColor = Color.fromARGB(255, 0, 72, 149);
 const kBlackColor = Colors.black;
 const kWhiteColor = Colors.white;
 const kHeight10 = SizedBox(height: 10);

@@ -3,38 +3,93 @@ import 'package:flutter/material.dart';
 import 'package:student_management/services/students_service.dart';
 import 'package:student_management/utils/consts.dart';
 
-class AddEditStudent extends StatelessWidget {
-  AddEditStudent({
+class AddEditStudent extends StatefulWidget {
+  const AddEditStudent({
     super.key,
-    this.dataToEdit,
+    this.studentData,
   });
 
-  final QueryDocumentSnapshot? dataToEdit;
+  final QueryDocumentSnapshot? studentData;
 
+  @override
+  State<AddEditStudent> createState() => _AddEditStudentState();
+}
+
+class _AddEditStudentState extends State<AddEditStudent> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  final nameController = TextEditingController();
-  final admissionController = TextEditingController();
-  final attendanceController = TextEditingController();
-  final leaveController = TextEditingController();
+  late TextEditingController admissionController;
+  late TextEditingController nameController;
+  late TextEditingController attendanceController;
+  late TextEditingController leaveController;
+
+  @override
+  void initState() {
+    super.initState();
+    admissionController =
+        TextEditingController(text: widget.studentData?['admission'] ?? '');
+    nameController =
+        TextEditingController(text: widget.studentData?['name'] ?? '');
+    attendanceController =
+        TextEditingController(text: widget.studentData?['attendance'] ?? '');
+    leaveController =
+        TextEditingController(text: widget.studentData?['leave'] ?? '');
+  }
+
+  @override
+  void dispose() {
+    admissionController.dispose();
+    nameController.dispose();
+    attendanceController.dispose();
+    leaveController.dispose();
+    super.dispose();
+  }
+
+  final StudentsService studentsService = StudentsService();
+
+  void addStudent() {
+    final admission = admissionController.text.trim();
+    final name = nameController.text.trim();
+    final attendance = attendanceController.text.trim();
+    final leave = leaveController.text.trim();
+    studentsService.addStudent(
+      admission,
+      name,
+      attendance,
+      leave,
+    );
+  }
+
+  void editStudent(docId) {
+    final admission = admissionController.text.trim();
+    final name = nameController.text.trim();
+    final attendance = attendanceController.text.trim();
+    final leave = leaveController.text.trim();
+    studentsService.editStudent(
+      docId,
+      admission,
+      name,
+      attendance,
+      leave,
+    );
+    studentsService.students.orderBy('time', descending: false);
+  }
 
   @override
   Widget build(BuildContext context) {
-    // titleController.text = title ?? '';
-    // noteController.text = note ?? '';
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text(
-          'Update Students',
+        title: Text(
+          widget.studentData == null ? 'Add Details' : 'Edit Details',
           style: TextStyle(
-            color: kWhiteColor,
+            color: Theme.of(context).textTheme.bodyMedium!.color,
           ),
         ),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: IntrinsicHeight(
             child: Container(
               padding: const EdgeInsets.all(20),
@@ -43,7 +98,7 @@ class AddEditStudent extends StatelessWidget {
                   color: Theme.of(context).colorScheme.secondaryContainer,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withOpacity(0.05),
                       blurRadius: 10,
                       spreadRadius: 0,
                     )
@@ -76,12 +131,9 @@ class AddEditStudent extends StatelessWidget {
                     ElevatedButton.icon(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          StudentsService().addStudent(
-                            admissionController.text.trim(),
-                            nameController.text.trim(),
-                            attendanceController.text.trim(),
-                            leaveController.text.trim(),
-                          );
+                          widget.studentData == null
+                              ? addStudent()
+                              : editStudent(widget.studentData!.id);
                           Navigator.pop(context);
                         }
                       },
@@ -114,10 +166,6 @@ class AddEditStudent extends StatelessWidget {
       ),
     );
   }
-
-  final customBorder = const OutlineInputBorder(
-    borderSide: BorderSide(color: mainColor),
-  );
 }
 
 class TextFieldContainer extends StatelessWidget {

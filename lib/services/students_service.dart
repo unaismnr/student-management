@@ -12,7 +12,7 @@ class StudentsService {
     String leave,
   ) {
     return students.add({
-      'reg.no': addmissionNo,
+      'admission': addmissionNo,
       'name': name,
       'attendance': attendance,
       'leave': leave,
@@ -25,19 +25,23 @@ class StudentsService {
     return getStudents;
   }
 
-  void editStudent(
+  Future<void> editStudent(
     String docId,
     String addmissionNo,
     String name,
     String attendance,
     String leave,
-  ) {
-    students.doc(docId).update({
-      'reg.no': addmissionNo,
+  ) async {
+    await students.doc(docId).update({
+      'admission': addmissionNo,
       'name': name,
       'attendance': attendance,
       'leave': leave,
-      'time': Timestamp.now(),
+      'editedTime': Timestamp.now(),
     });
+  }
+
+  Future<void> deleteStudent(String docId) async {
+    await students.doc(docId).delete();
   }
 }

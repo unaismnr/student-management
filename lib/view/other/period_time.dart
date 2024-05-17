@@ -6,9 +6,16 @@ class PeriodTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          'Period Time',
+          style: TextStyle(
+            color: Theme.of(context).textTheme.bodyMedium!.color,
+          ),
+        ),
+      ),
       body: const Center(
-        child: Text('Period Time'),
+        child: Text('Not Available'),
       ),
     );
   }

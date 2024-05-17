@@ -4,9 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:student_management/controllers/time_provider.dart';
 import 'package:student_management/utils/consts.dart';
 import 'package:student_management/view/common/navigation_helper.dart';
+import 'package:student_management/view/other/alerts.dart';
+import 'package:student_management/view/other/exams.dart';
+import 'package:student_management/view/other/marks.dart';
 import 'package:student_management/view/students/widgets/add_edit_student.dart';
 import 'package:student_management/view/students/all_students.dart';
-import 'package:student_management/view/students/widgets/delete_students_list_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -184,13 +186,42 @@ class HomeGridView extends StatelessWidget {
                   } else if (items['title'] == 'Add') {
                     NavigationHelper.push(
                       context,
-                      AddEditStudent(),
+                      const AddEditStudent(),
+                    );
+                  } else if (items['title'] == 'Marks') {
+                    NavigationHelper.push(
+                      context,
+                      const Marks(),
+                    );
+                  } else if (items['title'] == 'Attendance') {
+                    NavigationHelper.push(
+                      context,
+                      AllStudents(),
+                    );
+                  } else if (items['title'] == 'Leave') {
+                    NavigationHelper.push(
+                      context,
+                      AllStudents(),
+                    );
+                  } else if (items['title'] == 'Alerts') {
+                    NavigationHelper.push(
+                      context,
+                      const Alerts(),
                     );
                   } else if (items['title'] == 'Edit') {
+                    NavigationHelper.push(
+                      context,
+                      AllStudents(),
+                    );
                   } else if (items['title'] == 'Delete') {
                     NavigationHelper.push(
                       context,
-                      const DeleteStudentsList(),
+                      AllStudents(),
+                    );
+                  } else if (items['title'] == 'Exams') {
+                    NavigationHelper.push(
+                      context,
+                      const Exams(),
                     );
                   }
                 },

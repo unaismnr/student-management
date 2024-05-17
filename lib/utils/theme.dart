@@ -5,10 +5,11 @@ import 'package:student_management/utils/consts.dart';
 class MainTheme {
   static final lightMode = ThemeData(
     appBarTheme: const AppBarTheme(
+      elevation: 0,
       centerTitle: true,
-      color: mainColor,
+      color: Color.fromARGB(255, 247, 247, 247),
       iconTheme: IconThemeData(
-        color: kWhiteColor,
+        color: Color.fromARGB(255, 40, 40, 40),
       ),
     ),
     fontFamily: 'Lato',
@@ -19,7 +20,7 @@ class MainTheme {
         color: kBlackColor,
       )),
       iconTheme: MaterialStatePropertyAll(IconThemeData(
-        color: kBlackColor,
+        color: mainColor,
       )),
     ),
     scaffoldBackgroundColor: const Color.fromARGB(255, 247, 247, 247),
@@ -48,10 +49,11 @@ class MainTheme {
   //DARK
   static final darkMode = ThemeData(
     appBarTheme: const AppBarTheme(
+      elevation: 0,
       centerTitle: true,
-      color: kBlackColor,
+      color: Color.fromARGB(255, 40, 40, 40),
       iconTheme: IconThemeData(
-        color: kWhiteColor,
+        color: Color.fromARGB(255, 247, 247, 247),
       ),
     ),
     fontFamily: 'Lato',
