@@ -1,6 +1,6 @@
 <h2 align="center">Student Management</h2>
 
-<p align="center">This is a student management app that enables teachers to add and manage student details efficiently.</p>
+<p align="center">The application allows teachers to efficiently manage student details by providing functionalities to add, edit, and delete student information.</p>
 
 - Technology: **Flutter with Dart**.
 - State Management: **Provider**.
